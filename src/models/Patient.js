@@ -4,10 +4,9 @@ class Patient {
         return await knex("patients").insert({name, dateOfBirth, address, gender, phone, email})
     }
 
-    async find(name){
-        const res = await knex("patients").select("*").where({ name: name })
-
-        return res[0]
+    async find(email){
+        const res = await knex("patients").select("*").where({ email: email })
+        return res
     }
 
     async verify(name, email){
@@ -16,15 +15,42 @@ class Patient {
             return {exists: true}
         }
         const emailInUSe = await knex("patients").select("*").where({ email: email});
-        if(nameInUSe.length > 0){
+        if(emailInUSe.length > 0){
             return {exists: true}
         }
-
         return {exists: false}
     }
 
-    async delete(name){
-        
+    async delete(email){
+        try {
+            return await knex("patients").select("*").where({ email: email}).del();
+        } catch (err) {
+            console.log("Patients.delete =>> ", err.message);
+        }
+    }
+
+    async update(phone, email, address, newEmail){
+        try {
+            var editPatient = {}
+
+            if(phone){
+                editPatient.phone = phone;
+            }
+
+            if(newEmail){
+                editPatient.email = newEmail;
+            }
+
+            if(address){
+                editPatient.address = address;
+            }
+
+            await knex("patients").where({email: email}).update(editPatient);
+            
+        } catch (err) {
+            console.log("Patients.update =>> ", err.message);
+        }
+
     }
 }
 

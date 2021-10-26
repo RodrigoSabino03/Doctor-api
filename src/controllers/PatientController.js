@@ -2,18 +2,11 @@ const Patient = require('../models/Patient')
 
 class PatientController {
     async search(req, res){
-        const {name, email} = req.body;
+        const {email} = req.body;
 
-        const verification = await Patient.verify(name, email);
+        const patient = await Patient.find(email)
 
-        if(verification.exists){
-            return res.status(400).json({ error: "user not found" });
-        }
-
-        const patient = await Patient.find(name)
-
-
-        return res.status(200).json(console.log(patient));
+        return res.status(200).json({patient});
 
     }
     async create(req, res){
@@ -34,9 +27,32 @@ class PatientController {
 
     }
     async delete(req, res){
+        const {email} = req.body;
+
+        // verificar de existe uma conta com o email
+        const verifyPatient = await Patient.find(email);
+
+        if(verifyPatient.length < 0){
+            return res.status(400).json({message: "user not exists"})
+        }
+
+        const patient = await Patient.delete(email);
+        return res.status(201).json({message: "user deleted successfully"})
+
+
 
     }
     async update(req, res){
+        const {email, newEmail, phone, address} = req.body;
+
+        const verifyPatient = await Patient.find(email);
+
+        if(verifyPatient.length < 0){
+            return res.status(400).json({message: "user not exists"})
+        }
+
+        const patient = await Patient.update(email, phone, address);
+        return res.status(200).json({message: "user updated successfully"})
         
     }
 }
