@@ -1,6 +1,4 @@
 import { useState } from "react";
-import Modal from 'react-modal';
-import { useHistory } from "react-router-dom";
 import { AppointmentItem } from "../components/AppointmentItem";
 import { Button } from "../components/Button";
 import { Header } from "../components/Header";
