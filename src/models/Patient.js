@@ -29,25 +29,10 @@ class Patient {
         }
     }
 
-    async update(phone, email, address, newEmail){
+    async update(){
         try {
-            var editPatient = {}
 
-            if(newEmail){
-                editPatient.newEmail = email;
-            }
-
-            if(phone){
-                editPatient.phone = phone;
-            }
-
-            if(address){
-                editPatient.address = address;
-            }
-
-            console.log("editPatient => ", editPatient)
-
-            await knex("patients").where("*").update(editPatient);
+    
             return { success: true }
         } catch (err) {
             console.log("Patients.update =>> ", err.message);
