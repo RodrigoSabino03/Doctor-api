@@ -6,6 +6,6 @@ const routes = Router();
 routes.post("/patient", PatientController.create)
 routes.get("/patient", PatientController.search)
 routes.delete("/patient", PatientController.delete)
-routes.put("/patient", PatientController.update)
+routes.put("/patient", PatientController.edit)
 
 module.exports = { routes };

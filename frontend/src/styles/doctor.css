@@ -1,0 +1,34 @@
+.container-doctor {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-doctor{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 40px;
+}
+
+.patients-section, .appointments-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+
+.patients-header, .appointments-header {
+    display: flex;
+    justify-content: flex-start;
+    
+}
+
+.patients-section h4, .appointments-section h4{
+    margin-right: 20px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 40px;
+}

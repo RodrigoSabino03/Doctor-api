@@ -22,7 +22,7 @@ class PatientController {
             return res.status(400).json({ error: "user exists"})
         }
 
-        const patient = await Patient.create(name, dateOfBirth, address, gender, phone, email);
+        await Patient.create(name, dateOfBirth, address, gender, phone, email);
         return res.status(201).json({message: "user created successfully"})
 
     }
@@ -36,24 +36,40 @@ class PatientController {
             return res.status(400).json({message: "user not exists"})
         }
 
-        const patient = await Patient.delete(email);
+        await Patient.delete(email);
         return res.status(201).json({message: "user deleted successfully"})
 
 
 
     }
-    async update(req, res){
+    async edit(req, res){
         const {email, newEmail, phone, address} = req.body;
 
         const verifyPatient = await Patient.find(email);
 
         if(verifyPatient.length < 0){
-            return res.status(400).json({message: "user not exists"})
+            return res.status(400).json({message: "user not exists"});
         }
 
-        const patient = await Patient.update(email, phone, address);
-        return res.status(200).json({message: "user updated successfully"})
-        
+        console.log("verifyPatients => ", verifyPatient)
+
+        const editFields = {
+            email,
+            phone,
+            address,
+        };
+
+        console.log("editFields => ", editFields)
+
+        const result = await Patient.update(editFields);
+
+        console.log("result => ", result)
+
+        if(!result.success){
+            res.status(400).send(result.err);
+        }
+
+        return res.status(204).json({message: "user updated update", success: true});
     }
 }
 
