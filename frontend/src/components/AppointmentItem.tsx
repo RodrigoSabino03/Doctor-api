@@ -1,7 +1,20 @@
 import { useState } from 'react';
-import deleteImg from '../assets/delete.png'
+import { api } from '../services/api';
 
-export function AppointmentItem(){
+import deleteImg from '../assets/delete.png'
+import editImg from '../assets/edit.png'
+import { NewAppointmentModal } from './NewAppointmentModal';
+
+type AppointmentItemProps = {
+    specialty: string,
+    date: string,
+    schedule: string,
+    status: string,
+}
+
+
+export function AppointmentItem(props: AppointmentItemProps){
+    const [isEditAppointmentModal, setIsEditAppointmentModal] = useState(false);
     const [status, setStatus] = useState("Pendente");
     const [colorStatus, setColorStatus] = useState("yellow");
     function handleConfirmDelete(){
@@ -11,22 +24,39 @@ export function AppointmentItem(){
     }
 
     function handleCheckedStatus(){
-
         setStatus("Executado")
         setColorStatus("green")
+
+        api.put("/appointment", {status})
     }
+
+    function handleOpenEditAppointmentModal(){
+        setIsEditAppointmentModal(true)
+    }
+    function handleCloseEditAppointmentModal(){
+        setIsEditAppointmentModal(false)
+    }
+
+    
     return(
         <div className="item-container">
-            <p>Especialidade</p>
-            <p>30/07/2001</p>
-            <p>13:00h</p>
+            <p>{props.specialty}</p>
+            <p>{props.date}</p>
+            <p>{props.schedule}</p>
             <button onClick={handleCheckedStatus}>
-                <p id={colorStatus}>{status}</p>
+                <p id={colorStatus}>{props.status}</p>
+            </button>
+
+            <button onClick={handleOpenEditAppointmentModal}>
+                <img  src={editImg} alt="editar" />
             </button>
 
             <button onClick={handleConfirmDelete}>
                 <img  src={deleteImg} alt="lixeira" />
             </button>
+
+            <NewAppointmentModal title="Edite os dados da consulta" isOpen={isEditAppointmentModal} onRequestClose={handleCloseEditAppointmentModal} />
+
         </div>
     )
 }

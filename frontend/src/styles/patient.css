@@ -14,8 +14,9 @@
 .appointments-section{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: 50%;
+    height: 300px
 }
 
 .appointments-section h4{

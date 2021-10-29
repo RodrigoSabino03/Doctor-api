@@ -7,16 +7,21 @@ import { Button } from './Button';
 
 type NewPatientsModalProps = {
     isOpen: boolean,
-    onRequestClose: () => void
+    onRequestClose: () => void,
+    title: string,
 }
 
-export function NewPatientsModal({ isOpen, onRequestClose }: NewPatientsModalProps){
+export function NewPatientsModal({ isOpen, onRequestClose, title }: NewPatientsModalProps){
     const [name, setName] = useState('')
     const [dateOfBirth, setDateOfBirth] = useState('')
     const [gender, setGender] = useState('')
     const [address, setAddress] = useState('')
     const [phone, setPhone] = useState(0)
     const [email, setEmail] = useState('')
+
+    function successfullyCreatedPatient(){
+        window.alert("Paciente criado com sucesso")
+    }
 
     function handleCreateNewPatient(e: FormEvent){
         e.preventDefault();
@@ -31,6 +36,8 @@ export function NewPatientsModal({ isOpen, onRequestClose }: NewPatientsModalPro
         }
 
         api.post("/patient", patient)
+        successfullyCreatedPatient();
+
     }
     
 
@@ -42,7 +49,7 @@ export function NewPatientsModal({ isOpen, onRequestClose }: NewPatientsModalPro
     >
 
             <div className="header-modal">
-            <h2 className="title-modal">Cadastre o paciente</h2>
+            <h2 className="title-modal">{title}</h2>
                 <button
                     className="react-modal-close"
                     type="button"

@@ -1,8 +1,25 @@
 import '../styles/patientItem.css'
 
 import deleteImg from '../assets/delete.png'
+import editImg from '../assets/edit.png'
+import { NewPatientsModal } from './NewPatientsModal'
+import { useState } from 'react';
 
-export function PatientItem(){
+type PatientItemProps = {
+    name: string,
+    dateOfBirth: string,
+}
+
+
+export function PatientItem(props: PatientItemProps){
+    const [isEditPatientsModal, setIsEditPatientsModal] = useState(false);
+
+    function handleOpenEditPatientsModal(){
+        setIsEditPatientsModal(true)
+    }
+    function handleCloseEditPatientsModal(){
+        setIsEditPatientsModal(false)
+    }
 
     function handleConfirmDelete(){
         if(window.confirm('Are you sure you want to delete')){
@@ -12,11 +29,20 @@ export function PatientItem(){
 
     return(
         <div className="item-container">
-            <p>rodrigo sabino de menezes</p>
-            <p>30/07/2001</p>
-            <button onClick={handleConfirmDelete}>
-                <img  src={deleteImg} alt="lixeira" />
-            </button>
+            <p>{props.name}</p>
+            <p>{props.dateOfBirth}</p>
+
+            <div className="buttons">
+                <button onClick={handleOpenEditPatientsModal}>
+                    <img  src={editImg} alt="editar" />
+                </button>
+                <button onClick={handleConfirmDelete}>
+                    <img  src={deleteImg} alt="lixeira" />
+                </button>
+            </div>
+
+            <NewPatientsModal title="Edite os dados do paciente" isOpen={isEditPatientsModal} onRequestClose={handleCloseEditPatientsModal} />
+
         </div>
     )
 }

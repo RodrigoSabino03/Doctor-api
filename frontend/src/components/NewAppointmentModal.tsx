@@ -7,13 +7,18 @@ import { api } from '../services/api';
 
 type NewAppointmentModalProps = {
     isOpen: boolean,
-    onRequestClose: () => void
+    onRequestClose: () => void,
+    title: string,
 }
 
-export function NewAppointmentModal({ isOpen, onRequestClose}:NewAppointmentModalProps){
+export function NewAppointmentModal({ isOpen, onRequestClose, title}:NewAppointmentModalProps){
     const [date, setDate] = useState('');
     const [schedule, setSchedule] = useState('');
     const [specialty, setSpecialty] = useState('');
+
+    function successfullyCreatedAppointment(){
+        window.alert("Paciente criado com sucesso")
+    }
 
     function handleCreateNewAppointment(e: FormEvent) {
         e.preventDefault();
@@ -25,6 +30,7 @@ export function NewAppointmentModal({ isOpen, onRequestClose}:NewAppointmentModa
         }
 
         api.post("/appointment", appointment)
+        successfullyCreatedAppointment();
     }
 
 
@@ -34,7 +40,7 @@ export function NewAppointmentModal({ isOpen, onRequestClose}:NewAppointmentModa
             onRequestClose={onRequestClose}
         >
         <div className="header-modal">
-            <h2 className="title-modal">Agende sua consulta</h2>
+            <h2 className="title-modal">{title}</h2>
             <button
                     className="react-modal-close"
                     type="button"
