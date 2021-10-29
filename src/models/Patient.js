@@ -9,6 +9,11 @@ class Patient {
         return res[0]
     }
 
+    async findAll(){
+        const res = await knex("patients").select("*")
+        return res
+    }
+
     async verify(name, email){
         const nameInUSe = await knex("patients").select("*").where({ name: name});
         if(nameInUSe.length > 0){

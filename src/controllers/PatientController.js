@@ -9,6 +9,13 @@ class PatientController {
         return res.status(200).json(patient);
 
     }
+
+    async searchAll(req, res){
+        const patients = await Patient.findAll();
+        console.log(patients)
+        return res.status(200).json(patients);
+
+    }
     async create(req, res){
         const { name, dateOfBirth, address, gender, phone, email } = req.body;
 

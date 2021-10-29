@@ -11,6 +11,8 @@ routes.post("/patient", PatientController.create)
 routes.get("/patient/:email", PatientController.search)
 routes.delete("/patient", PatientController.delete)
 routes.put("/patient/:email", PatientController.edit)
+routes.get("/patients", PatientController.searchAll)
+
 
 //doctors
 routes.post("/doctor", DoctorController.create)
