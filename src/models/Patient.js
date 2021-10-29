@@ -6,7 +6,7 @@ class Patient {
 
     async find(email){
         const res = await knex("patients").select("*").where({ email: email })
-        return res
+        return res[0]
     }
 
     async verify(name, email){

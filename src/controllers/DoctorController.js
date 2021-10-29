@@ -20,11 +20,13 @@ class DoctorController{
     }
 
     async search(req, res){
-        const {crm} = req.body;
+        const {crm} = req.params;
 
         const doctor = await Doctor.find(crm)
 
-        return res.status(200).json({doctor});
+
+
+        return res.status(200).json(doctor);
 
     }
     async delete(req, res){
@@ -33,7 +35,7 @@ class DoctorController{
         // verificar de existe uma conta com o email
         const verifyDoctor = await Doctor.find(crm);
 
-        if(verifyDoctor.length < 0){
+        if(verifyDoctor.length < 1){
             return res.status(400).json({message: "user not exists"})
         }
 

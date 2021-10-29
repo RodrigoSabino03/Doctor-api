@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import { Button } from "../components/Button";
 import { Header } from "../components/Header";
+import { api } from "../services/api";
 
 import '../styles/loginDoctor.css'
 
@@ -13,14 +14,20 @@ export function LoginDoctor(){
 
     function handleAuthDoctor(e: FormEvent){
         e.preventDefault();
-        console.log({crmDoctor})
 
-        //checkar no banco de dados se existe esse crm
+        const crm = crmDoctor 
 
-        // se sim, envia prp admin
-        //history.push("/doctor")
 
-        //se nao, retona um alert de erro
+
+        api.get(`/doctor/${crm}`)
+        .then(response => {
+            const doctor = response.data
+            
+            if(doctor.crm === crm) {
+                history.push("/doctor")
+            }
+        })
+
     }
 
     return(

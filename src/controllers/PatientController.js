@@ -2,11 +2,11 @@ const Patient = require('../models/Patient')
 
 class PatientController {
     async search(req, res){
-        const {email} = req.body;
+        const {email} = req.params;
 
         const patient = await Patient.find(email)
 
-        return res.status(200).json({patient});
+        return res.status(200).json(patient);
 
     }
     async create(req, res){

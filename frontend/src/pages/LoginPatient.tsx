@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "../components/Button";
 import { Header } from "../components/Header";
+import { api } from "../services/api";
 
 export function LoginPatient(){
     const [emailPatient, setEmailPatient] = useState('')
@@ -10,15 +11,19 @@ export function LoginPatient(){
 
     function handleAuthPatient(e: FormEvent){
         e.preventDefault();
-        console.log({emailPatient})
+
+
+        const email = emailPatient
 
         //checkar no banco de dados se existe esse email
-
-
-        // se sim, envia pro admin
-            //history.push("/patient")
-
-        //se nao, retona um alert de erro
+        api.get(`/patient/${email}`)
+        .then(response => {
+            const patient = response.data
+            
+            if(patient.email === email) {
+                history.push("/patient")
+            }
+        })
     }
     
     return(

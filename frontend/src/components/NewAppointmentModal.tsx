@@ -18,8 +18,6 @@ export function NewAppointmentModal({ isOpen, onRequestClose}:NewAppointmentModa
     function handleCreateNewAppointment(e: FormEvent) {
         e.preventDefault();
 
-        console.log({date, schedule, specialty})
-
         const appointment = {
             date, 
             schedule, 
@@ -78,7 +76,7 @@ export function NewAppointmentModal({ isOpen, onRequestClose}:NewAppointmentModa
                         /></label>
                 </div>
             <div className="btn-submit">
-                <Button onClick={onRequestClose} type="submit">Agendar</Button>
+                <Button type="submit">Agendar</Button>
             </div>
             
         </form>

@@ -7,7 +7,8 @@ class Doctor{
 
     async find(crm){
         const res = await knex("doctors").select("*").where({ crm: crm })
-        return res
+
+        return res[0]
     }
 
     async verify(crm){

@@ -8,13 +8,13 @@ const routes = Router();
 
 //patients
 routes.post("/patient", PatientController.create)
-routes.get("/patient", PatientController.search)
+routes.get("/patient/:email", PatientController.search)
 routes.delete("/patient", PatientController.delete)
 routes.put("/patient/:email", PatientController.edit)
 
 //doctors
 routes.post("/doctor", DoctorController.create)
-routes.get("/doctor", DoctorController.search)
+routes.get("/doctor/:crm", DoctorController.search)
 routes.delete("/doctor", DoctorController.delete)
 routes.put("/doctor/:crm", DoctorController.edit)
 
