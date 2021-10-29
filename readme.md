@@ -5,14 +5,17 @@
 
 # oque eu fiz hj
 
-    - terminei o CRUD dos pacientes
-    - terminei o CRUD das consultas
-    - terminei o CRUD do doutor
-    - melhorei a interface
+    - configurei o back e o front para integraçao
+    - deixar as paginas de login 100% funcional
+    - deixar cadastro de pacientes e consultas 100% funcional
+    - criaçao da rota de todos os pacientes
+    - começar modelar as paginas de admin
 
 # oque eu vou fazer amanha
-    - começar a preparar o front para integração com o backend
-    - chamar a api do backend
-    - fazer o sistema de login de medico e paciente
+
+    - Deixar as paginas de admin 100% funcional
+    - criar a rota de consultas
+    - deixar o botao de deletar consultas e pacientes 100% funcional
+
 
 
