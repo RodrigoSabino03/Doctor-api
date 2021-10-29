@@ -2,6 +2,8 @@ import Modal from 'react-modal';
 import { Button } from './Button';
 
 import '../styles/appointmentModal.css'
+import { FormEvent, useState } from 'react';
+import { api } from '../services/api';
 
 type NewAppointmentModalProps = {
     isOpen: boolean,
@@ -9,6 +11,25 @@ type NewAppointmentModalProps = {
 }
 
 export function NewAppointmentModal({ isOpen, onRequestClose}:NewAppointmentModalProps){
+    const [date, setDate] = useState('');
+    const [schedule, setSchedule] = useState('');
+    const [specialty, setSpecialty] = useState('');
+
+    function handleCreateNewAppointment(e: FormEvent) {
+        e.preventDefault();
+
+        console.log({date, schedule, specialty})
+
+        const appointment = {
+            date, 
+            schedule, 
+            specialty
+        }
+
+        api.post("/appointment", appointment)
+    }
+
+
     return(
         <Modal
             isOpen={isOpen}
@@ -25,23 +46,39 @@ export function NewAppointmentModal({ isOpen, onRequestClose}:NewAppointmentModa
                     X
             </button>
         </div>
-        <form className="modal-appointment">
+        <form onSubmit={handleCreateNewAppointment} className="modal-appointment">
             <label>Genero
-                    <select name="gender" id="input-full">
+                    <select
+                        name="specialty" 
+                        id="input-full"
+                        value={specialty}
+                        onChange={e => setSpecialty(e.target.value)}>
                         <option value="0" ></option>
-                        <option value="masculino">Clínico Geral</option>
-                        <option value="Feminino">Cardiologia</option>  
-                        <option value="Outros">Neurologista</option>   
+                        <option value="Clínico Geral">Clínico Geral</option>
+                        <option value="Cardiologia">Cardiologia</option>  
+                        <option value="Neurologista">Neurologista</option>   
                     </select></label>
                 <div className="double-input">
                     <label>Data da consulta
-                        <input type="text" name="dateOfBirth" id="input-mini" /></label>
+                        <input
+                            type="text" 
+                            name="dateOfBirth" 
+                            id="input-mini" 
+                            value={date}
+                            onChange={e => setDate(e.target.value)}
+                        /></label>
 
                     <label>horario
-                        <input type="text" name="name" id="input-mini" /></label>
+                        <input 
+                            type="text" 
+                            name="name" 
+                            id="input-mini" 
+                            value={schedule}
+                            onChange={e => setSchedule(e.target.value)}
+                        /></label>
                 </div>
             <div className="btn-submit">
-                <Button type="submit">Agendar</Button>
+                <Button onClick={onRequestClose} type="submit">Agendar</Button>
             </div>
             
         </form>
