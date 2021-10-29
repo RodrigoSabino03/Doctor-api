@@ -43,6 +43,29 @@ class PatientController {
 
     }
     async edit(req, res){
+        const {email} = req.params;
+        const {newAddress, newPhone, newEmail} = req.body
+
+        const patient = await Patient.find(email);
+
+        if(patient.length === 0){
+            return res.status(404).json({message: "user not exists"})
+        }
+
+        const fields = {
+            newAddress,
+            newPhone, 
+            newEmail
+        }
+
+        const response = await Patient.update(email, fields);
+
+        if(!response.success){
+            return res.status(500).json({message: "deu ruim "})
+        }
+
+        return res.status(200).json({message: "deu bom "})
+        
         
     }
 }

@@ -29,9 +29,28 @@ class Patient {
         }
     }
 
-    async update(){
+    async update(email, options){
         try {
+            const {newEmail, newPhone, newAddress} = options;
 
+            let fieldsUp = {}
+
+            if(newEmail){
+                fieldsUp.email = newEmail;
+                
+            }
+
+            if(newPhone){
+                fieldsUp.phone = newPhone;
+                
+            }
+
+            if(newAddress){
+                fieldsUp.address = newAddress;
+            
+            }
+
+            await knex("patients").where({email: email}).update(fieldsUp)
     
             return { success: true }
         } catch (err) {

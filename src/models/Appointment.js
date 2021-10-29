@@ -1,8 +1,8 @@
 const knex = require('../database')
 
 class Appointment{
-    async create(date, schedule, specialty, status) {
-        return await knex("appointments").insert({date, schedule, specialty, status})
+    async create(date, schedule, specialty) {
+        return await knex("appointments").insert({date, schedule, specialty})
     }
 
     async find(date, schedule){
@@ -30,13 +30,37 @@ class Appointment{
         }
     }
 
-    async update(){
+    async update(date, schedule, options){
         try {
+            const {newDate, newSchedule, newSpecialty, newStatus} = options;
+
+            let fieldsUp = {}
+
+            if(newDate){
+                fieldsUp.date = newDate;
+            }
+
+            if(newSchedule){
+                fieldsUp.schedule = newSchedule;
+                
+            }
+
+            if(newSpecialty){
+                fieldsUp.specialty = newSpecialty;
+            
+            }
+            if(newStatus){
+                fieldsUp.status = newStatus;
+            
+            }
+
+
+            await knex("appointments").where({date: date, schedule: schedule}).update(fieldsUp)
 
     
             return { success: true }
         } catch (err) {
-            console.log("Patients.update =>> ", err.message);
+            console.log("Appointment.update =>> ", err.message);
             return { success: false }
         }
 

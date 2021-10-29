@@ -10,9 +10,9 @@ class AppointmentController{
 
     }
     async create(req, res){
-        const { date, schedule, specialty, status } = req.body;
+        const { date, schedule, specialty } = req.body;
 
-        if(!date || !schedule || !specialty || !status){
+        if(!date || !schedule || !specialty){
             return res.status(400).json({ error: "credential is missing" });
         }
 
@@ -22,7 +22,7 @@ class AppointmentController{
         //     return res.status(400).json({ error: "user exists"})
         // }
 
-        await Appointment.create(date, schedule, specialty, status);
+        await Appointment.create(date, schedule, specialty);
         return res.status(201).json({message: "appointment created successfully"})
 
     }
@@ -43,6 +43,29 @@ class AppointmentController{
 
     }
     async edit(req, res){
+        const {date, schedule} = req.params;
+        const {newDate, newSchedule, newSpecialty, newStatus} = req.body
+
+        const appointment = await Appointment.find(date, schedule);
+
+        if(appointment.length === 0){
+            return res.status(404).json({message: "user not exists"})
+        }
+
+        const fields = {
+            newDate,
+            newSchedule, 
+            newSpecialty, 
+            newStatus
+        }
+
+        const response = await Appointment.update(date, schedule, fields);
+
+        if(!response.success){
+            return res.status(500).json({message: "deu ruim "})
+        }
+
+        return res.status(200).json({message: "deu bom "})
         
     }
 

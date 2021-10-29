@@ -40,7 +40,26 @@ class DoctorController{
         await Doctor.delete(crm);
         return res.status(201).json({message: "user deleted successfully"})
     }
+
     async edit(req, res){
+        const {crm} = req.params;
+        const { newCrm } = req.body
+
+        const doctor = await Doctor.find(crm);
+
+        if(doctor.length === 0){
+            return res.status(404).json({message: "user not exists"})
+        }
+
+        const fields = { newCrm }
+
+        const response = await Doctor.update(crm, fields);
+
+        if(!response.success){
+            return res.status(500).json({message: "deu ruim "})
+        }
+
+        return res.status(200).json({message: "deu bom "})
         
     }
 }

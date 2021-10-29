@@ -24,16 +24,25 @@ class Doctor{
             console.log("Doctor.delete =>> ", err.message);
         }
     }
-    async update(){
+
+    async update(crm, options){
         try {
+            const { newCrm } = options;
+
+            let fieldsUp = {}
+
+            if(newCrm){
+                fieldsUp.crm = newCrm;
+            }
+
+            await knex("doctors").where({crm: crm}).update(fieldsUp)
+
             return { success: true }
         } catch (err) {
-            console.log("Patients.update =>> ", err.message);
+            console.log("Appointment.update =>> ", err.message);
             return { success: false }
         }
-
     }
-
 }
 
 module.exports = new Doctor();
