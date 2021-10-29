@@ -1,20 +1,18 @@
-# Hygia-Api
+# Doctor-Api
 
 ---
 # diario de bordo
 
 # oque eu fiz hj
 
-    - fiz alguns testes pela manha no backend
-    - prototipei todas as telas da aplicação
-    - Criei todos os components
-    - Criei todas as telas estaticas
-    - criei os modals de cadastro
-    - frontend estatico ok
+    - terminei o CRUD dos pacientes
+    - terminei o CRUD das consultas
+    - terminei o CRUD do doutor
+    - melhorei a interface
 
 # oque eu vou fazer amanha
-    - terminar o metodo put dos pacientes
-    - fazer o CRUD das Consultas
-    - criar a tabela de medicos
+    - começar a preparar o front para integração com o backend
+    - chamar a api do backend
+    - fazer o sistema de login de medico e paciente
 
 
