@@ -31,7 +31,9 @@ __<p align="center">Doctor Api e uma aplicaçao para melhorar o fluxo de pacient
 <p align="center">
 <a  href="https://youtu.be/zfImSPFrOlo"><strong>Video Completo</strong></a>
 </p>
+
 ## :pushpin: Description
+
 <p>
   Essa aplicação pra mim foi muito importante pra quebrar alguns tabus na minha jornada,
   percebi que o backend n e esse bicho de 7 cabeças que existia na minha cabeça e ate me
