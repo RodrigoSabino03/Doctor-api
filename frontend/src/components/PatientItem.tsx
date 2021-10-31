@@ -8,6 +8,7 @@ import { NewPatientsModal } from './NewPatientsModal'
 import { useState } from 'react';
 import { api } from '../services/api';
 import { PatientModal } from './PatientModal'
+import { EditPatientsModal } from './EditPatientModal'
 
 type PatientItemProps = {
     name: string,
@@ -48,6 +49,11 @@ export function PatientItem(props: PatientItemProps){
     }
     function handleOpenEditPatientsModal(){
         setIsEditPatientsModal(true)
+        api.get(`/patient/${props.email}`)
+        .then(response => {
+            const patient = response.data
+            setEmail(patient.email)
+        })
     }
     function handleCloseEditPatientsModal(){
         setIsEditPatientsModal(false)
@@ -59,17 +65,12 @@ export function PatientItem(props: PatientItemProps){
         }
 
         api.delete(`/patient/${props.email}`)
-        .then( res => {
-            console.log(res)
-
-
-        })
     }
 
     return(
         <div className="item-container">
-            <p>{props.name}</p>
-            <p>{props.dateOfBirth}</p>
+            <p id="name">{props.name}</p>
+            <p >{props.dateOfBirth}</p>
 
             <div className="buttons">
                 <button onClick={handleOpenPatientsModal}>
@@ -83,10 +84,10 @@ export function PatientItem(props: PatientItemProps){
                 </button>
             </div>
 
-            <NewPatientsModal 
-                title="Edite os dados do paciente" 
+            <EditPatientsModal 
                 isOpen={isEditPatientsModal} 
                 onRequestClose={handleCloseEditPatientsModal} 
+                email={email}
             />
             
             <PatientModal

@@ -36,9 +36,21 @@ class Patient {
 
     async update(email, options){
         try {
-            const {newEmail, newPhone, newAddress} = options;
+            const {newName, newDateOfBirth, newGender, newEmail, newPhone, newAddress} = options;
 
             let fieldsUp = {}
+
+            if(newName){
+                fieldsUp.name = newName;
+            }
+
+            if(newDateOfBirth){
+                fieldsUp.dateOfBirth = newDateOfBirth;
+            }
+
+            if(newGender){
+                fieldsUp.gender = newGender;
+            }
 
             if(newEmail){
                 fieldsUp.email = newEmail;

@@ -50,8 +50,11 @@ export function NewPatientsModal({ isOpen, onRequestClose, title }: NewPatientsM
 
     return(
         <Modal
-        isOpen={isOpen}
-        onRequestClose={onRequestClose}
+            closeTimeoutMS={2000}
+            isOpen={isOpen}
+            onRequestClose={onRequestClose}
+            className="modal-content"
+            overlayClassName="modal-overlay"
         
     >
 

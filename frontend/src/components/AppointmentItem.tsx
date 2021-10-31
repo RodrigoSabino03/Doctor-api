@@ -30,6 +30,9 @@ export function AppointmentItem(props: AppointmentItemProps){
     }
 
     function handleCheckedStatus(){
+        if(!window.confirm('are you sure you want to update status')){
+            return 
+        }
         api.put(`/appointment/${props.date}/${props.schedule}`, {newStatus: "Executado"})
   
     }
@@ -53,13 +56,17 @@ export function AppointmentItem(props: AppointmentItemProps){
                 <p>{props.status}</p>
             </button>
 
-            <button onClick={handleOpenEditAppointmentModal}>
-                <img  src={editImg} alt="editar" />
-            </button>
+            <div className="btns-appointment">
+                <button onClick={handleOpenEditAppointmentModal}>
+                    <img  src={editImg} alt="editar" />
+                </button>
 
-            <button onClick={handleConfirmDelete}>
-                <img  src={deleteImg} alt="lixeira" />
-            </button>
+                <button onClick={handleConfirmDelete}>
+                    <img  src={deleteImg} alt="lixeira" />
+                </button>
+            </div>
+
+
 
             <NewAppointmentModal title="Edite os dados da consulta" isOpen={isEditAppointmentModal} onRequestClose={handleCloseEditAppointmentModal} />
 

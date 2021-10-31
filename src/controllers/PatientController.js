@@ -50,7 +50,7 @@ class PatientController {
     }
     async edit(req, res){
         const {email} = req.params;
-        const {newAddress, newPhone, newEmail} = req.body
+        const {newName, newGender, newDateOfBirth, newAddress, newPhone, newEmail} = req.body
 
         const patient = await Patient.find(email);
 
@@ -59,6 +59,9 @@ class PatientController {
         }
 
         const fields = {
+            newName,
+            newDateOfBirth,
+            newGender,
             newAddress,
             newPhone, 
             newEmail

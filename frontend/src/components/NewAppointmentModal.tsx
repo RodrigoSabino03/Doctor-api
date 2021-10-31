@@ -61,8 +61,11 @@ export function NewAppointmentModal({ isOpen, onRequestClose, title}:NewAppointm
 
     return(
         <Modal
+            closeTimeoutMS={2000}
             isOpen={isOpen}
             onRequestClose={onRequestClose}
+            className="modal-content"
+            overlayClassName="modal-overlay"
         >
         <div className="header-modal">
             <h2 className="title-modal">{title}</h2>

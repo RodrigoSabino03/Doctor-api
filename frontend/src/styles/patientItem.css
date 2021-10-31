@@ -24,7 +24,9 @@
 
 .buttons {
     display: flex;
-    align-items: center
+    align-items: center;
+    justify-content: space-between;
+    width: 80px;
     
 }
 
@@ -34,6 +36,17 @@
 
 .btn-status p {
     color: #FF1575;
+}
+
+#name {
+    width: 200px;
+}
+
+.btns-appointment {
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 
