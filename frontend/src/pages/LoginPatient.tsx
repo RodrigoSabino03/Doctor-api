@@ -38,7 +38,9 @@ export function LoginPatient(){
                         onChange={e => setEmailPatient(e.target.value)}
                         
                     /></label>
-                <Button type="submit">Entrar</Button>
+                    <div className="button-login">
+                        <Button type="submit">Entrar</Button>
+                    </div>
             </form>
         </div>
     

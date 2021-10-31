@@ -5,7 +5,6 @@ import { Header } from "../components/Header";
 import { NewAppointmentModal } from "../components/NewAppointmentModal";
 import { NewPatientsModal } from "../components/NewPatientsModal";
 import { PatientItem } from "../components/PatientItem";
-import { PatientModal } from "../components/PatientModal";
 import { api } from "../services/api";
 
 import '../styles/doctor.css'
@@ -84,7 +83,7 @@ export function Doctor(){
                     </div>
                     <div className="items-patients">
                         {patients.map(patient => (
-                            <PatientItem key={patient.id} name={patient.name} dateOfBirth={patient.dateOfBirth} email={patient.email} />
+                            <PatientItem key={patient.id} name={patient.name} dateOfBirth={patient.dateOfBirth } email={patient.email} />
                             ))}
                     </div>
                 </div>

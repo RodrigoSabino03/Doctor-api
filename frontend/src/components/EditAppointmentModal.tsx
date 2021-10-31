@@ -8,7 +8,8 @@ import { api } from '../services/api';
 type NewAppointmentModalProps = {
     isOpen: boolean,
     onRequestClose: () => void,
-    title: string,
+    date: string,
+    schedule: string,
 }
 type Patient = {
     id: number,
@@ -20,31 +21,17 @@ type Patient = {
     email: string,
 }
 
-export function NewAppointmentModal({ isOpen, onRequestClose, title}:NewAppointmentModalProps){
+export function EditAppointmentModal({ isOpen, onRequestClose, date, schedule}:NewAppointmentModalProps){
     const [patients, setPatients] = useState<Patient[]>([]);
-    const [patient, setPatient] = useState('');
-    const [date, setDate] = useState('');
-    const [schedule, setSchedule] = useState('');
-    const [specialty, setSpecialty] = useState('');
+    const [newPatient, setNewPatient] = useState('');
+    const [newDate, setNewDate] = useState('');
+    const [newSchedule, setNewSchedule] = useState('');
+    const [newSpecialty, setNewSpecialty] = useState('');
 
-    function successfullyCreatedAppointment(){
-        if(window.confirm("Consulta marcada com sucesso")){
+    function confirmEditAppointment(){
+        if(window.confirm("Consulta Editada com sucesso")){
             onRequestClose();
         }
-    }
-
-    function handleCreateNewAppointment(e: FormEvent) {
-        e.preventDefault();
-
-        const appointment = {
-            date, 
-            schedule, 
-            specialty,
-            patient
-        }
-
-        api.post("/appointment", appointment)
-        successfullyCreatedAppointment();
     }
 
     useEffect(() => {
@@ -57,6 +44,19 @@ export function NewAppointmentModal({ isOpen, onRequestClose, title}:NewAppointm
         })
     }, [patients])
 
+    function handleEditAppointment(e: FormEvent){
+        e.preventDefault();
+        confirmEditAppointment()
+
+        api.put(`/appointment/${date}/${schedule}`, {
+                newDate: newDate, 
+                newSchedule: newSchedule, 
+                newSpecialty: newSpecialty,  
+                newPatient: newPatient,  
+        })        
+    }
+
+
 
     return(
         <Modal
@@ -67,7 +67,7 @@ export function NewAppointmentModal({ isOpen, onRequestClose, title}:NewAppointm
             overlayClassName="modal-overlay"
         >
         <div className="header-modal">
-            <h2 className="title-modal">{title}</h2>
+            <h2 className="title-modal">Edite a consulta</h2>
             <button
                     className="react-modal-close"
                     type="button"
@@ -77,13 +77,13 @@ export function NewAppointmentModal({ isOpen, onRequestClose, title}:NewAppointm
                     X
             </button>
         </div>
-        <form onSubmit={handleCreateNewAppointment} className="modal-appointment">
+        <form onSubmit={handleEditAppointment} className="modal-appointment">
             <label>Especialidade
                     <select
                         name="specialty" 
                         id="input-full"
-                        value={specialty}
-                        onChange={e => setSpecialty(e.target.value)}>
+                        value={newSpecialty}
+                        onChange={e => setNewSpecialty(e.target.value)}>
                         <option value="0" >Selecione a Especialidade</option>
                         <option value="Clínico Geral">Clínico Geral</option>
                         <option value="Cardiologia">Cardiologia</option>  
@@ -96,8 +96,8 @@ export function NewAppointmentModal({ isOpen, onRequestClose, title}:NewAppointm
                             name="dateOfBirth" 
                             id="input-mini"
                             placeholder="ex: dd-mm-yyyy"
-                            value={date}
-                            onChange={e => setDate(e.target.value)}
+                            value={newDate}
+                            onChange={e => setNewDate(e.target.value)}
                     /></label>
 
                     <label>horario
@@ -105,16 +105,16 @@ export function NewAppointmentModal({ isOpen, onRequestClose, title}:NewAppointm
                             type="text" 
                             name="name" 
                             id="input-mini" 
-                            value={schedule}
-                            onChange={e => setSchedule(e.target.value)}
+                            value={newSchedule}
+                            onChange={e => setNewSchedule(e.target.value)}
                     /></label>
                 </div>
                 <label>Paciente
                     <select
                         name="patient" 
                         id="input-full"
-                        value={patient}
-                        onChange={e => setPatient(e.target.value)}
+                        value={newPatient}
+                        onChange={e => setNewPatient(e.target.value)}
                         >
                             <option value="0">Selecione o Paciente</option>
                         {
@@ -125,7 +125,7 @@ export function NewAppointmentModal({ isOpen, onRequestClose, title}:NewAppointm
 
                     </select></label>
             <div className="btn-submit">
-                <Button type="submit">Agendar</Button>
+                <Button type="submit">Editar</Button>
             </div>
             
         </form>

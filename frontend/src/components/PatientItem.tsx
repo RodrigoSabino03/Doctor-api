@@ -4,7 +4,6 @@ import deleteImg from '../assets/delete.png'
 import editImg from '../assets/edit.png'
 import dataImg from '../assets/data.png'
 
-import { NewPatientsModal } from './NewPatientsModal'
 import { useState } from 'react';
 import { api } from '../services/api';
 import { PatientModal } from './PatientModal'
@@ -92,7 +91,8 @@ export function PatientItem(props: PatientItemProps){
             
             <PatientModal
                  name={name} 
-                 dateOfBirth={dateOfBirth} 
+                 dateOfBirth={dateOfBirth}
+                     
                  gender={gender} address={address} 
                  phone={phone} email={email} 
                  title="Dados do paciente" 

@@ -3,7 +3,7 @@ import { api } from '../services/api';
 
 import deleteImg from '../assets/delete.png'
 import editImg from '../assets/edit.png'
-import { NewAppointmentModal } from './NewAppointmentModal';
+import { EditAppointmentModal } from './EditAppointmentModal';
 
 type AppointmentItemProps = {
     specialty: string,
@@ -16,21 +16,16 @@ type AppointmentItemProps = {
 export function AppointmentItem(props: AppointmentItemProps){
     const [isEditAppointmentModal, setIsEditAppointmentModal] = useState(false);
     function handleConfirmDelete(){
-        if(!window.confirm('Are you sure you want to delete')){
+        if(!window.confirm('Tem certeza que quer deletar a consulta?')){
             return 
         }
 
         api.delete(`/appointment/${props.date}/${props.schedule}`)
-        .then( res => {
-            console.log(res)
-
-
-        })
         
     }
 
     function handleCheckedStatus(){
-        if(!window.confirm('are you sure you want to update status')){
+        if(!window.confirm('Tem certeza que quer concluir a consulta?')){
             return 
         }
         api.put(`/appointment/${props.date}/${props.schedule}`, {newStatus: "Executado"})
@@ -57,18 +52,19 @@ export function AppointmentItem(props: AppointmentItemProps){
             </button>
 
             <div className="btns-appointment">
-                <button onClick={handleOpenEditAppointmentModal}>
-                    <img  src={editImg} alt="editar" />
-                </button>
+            <button onClick={handleOpenEditAppointmentModal}>
+                <img  src={editImg} alt="editar" />
+            </button>
 
-                <button onClick={handleConfirmDelete}>
-                    <img  src={deleteImg} alt="lixeira" />
-                </button>
+            <button onClick={handleConfirmDelete}>
+                <img  src={deleteImg} alt="lixeira" />
+            </button>
+
             </div>
 
 
 
-            <NewAppointmentModal title="Edite os dados da consulta" isOpen={isEditAppointmentModal} onRequestClose={handleCloseEditAppointmentModal} />
+            <EditAppointmentModal isOpen={isEditAppointmentModal} onRequestClose={handleCloseEditAppointmentModal} date={props.date} schedule={props.schedule} />
 
         </div>
     )

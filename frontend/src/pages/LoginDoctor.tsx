@@ -42,7 +42,9 @@ export function LoginDoctor(){
                         value={crmDoctor}
                         onChange={e => setCrmDoctor(e.target.value)}
                     /></label>
-                <Button type="submit">Entrar</Button>
+                    <div className="button-login">
+                        <Button type="submit">Entrar</Button>
+                    </div>
             </form>
         </div>
 

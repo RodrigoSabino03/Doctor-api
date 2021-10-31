@@ -52,29 +52,34 @@ class AppointmentController{
 
     }
     async edit(req, res){
-        const {date, schedule} = req.params;
-        const {newDate, newSchedule, newSpecialty, newStatus} = req.body
-
-        const appointment = await Appointment.find(date, schedule);
-
-        if(appointment.length === 0){
-            return res.status(404).json({message: "user not exists"})
+        try {
+            const {date, schedule} = req.params;
+            const {newDate, newSchedule, newSpecialty, newStatus, newPatient} = req.body
+    
+            const appointment = await Appointment.find(date, schedule);
+    
+            if(appointment.length === 0){
+                return res.status(404).json({message: "user not exists"})
+            }
+    
+            const fields = {
+                newDate,
+                newSchedule, 
+                newSpecialty, 
+                newStatus,
+                newPatient
+            }
+    
+            const response = await Appointment.update(date, schedule, fields);
+    
+            if(!response.success){
+                return res.status(500).json({message: "deu ruim "})
+            }
+    
+            return res.status(200).json({message: "deu bom "})
+        } catch (err) {
+            console.log(err)
         }
-
-        const fields = {
-            newDate,
-            newSchedule, 
-            newSpecialty, 
-            newStatus
-        }
-
-        const response = await Appointment.update(date, schedule, fields);
-
-        if(!response.success){
-            return res.status(500).json({message: "deu ruim "})
-        }
-
-        return res.status(200).json({message: "deu bom "})
         
     }
 

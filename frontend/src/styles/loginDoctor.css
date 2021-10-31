@@ -46,3 +46,7 @@
     border: 2px solid #FF1575;
     outline: 0;
 }
+.button-login{
+    display: flex;
+    justify-content: center;
+}

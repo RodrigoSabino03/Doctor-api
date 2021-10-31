@@ -37,7 +37,7 @@ class Appointment{
 
     async update(date, schedule, options){
         try {
-            const {newDate, newSchedule, newSpecialty, newStatus} = options;
+            const {newDate, newSchedule, newSpecialty, newStatus, newPatient} = options;
 
             let fieldsUp = {}
 
@@ -57,6 +57,10 @@ class Appointment{
             if(newStatus){
                 fieldsUp.status = newStatus;
             
+            }
+
+            if(newPatient){
+                fieldsUp.patient = newPatient;
             }
 
 
