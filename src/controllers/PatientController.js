@@ -12,7 +12,6 @@ class PatientController {
 
     async searchAll(req, res){
         const patients = await Patient.findAll();
-        console.log(patients)
         return res.status(200).json(patients);
 
     }
@@ -34,12 +33,12 @@ class PatientController {
 
     }
     async delete(req, res){
-        const {email} = req.body;
+        const {email} = req.params;
 
         // verificar de existe uma conta com o email
         const verifyPatient = await Patient.find(email);
 
-        if(verifyPatient.length < 0){
+        if(verifyPatient.length === 0){
             return res.status(400).json({message: "user not exists"})
         }
 

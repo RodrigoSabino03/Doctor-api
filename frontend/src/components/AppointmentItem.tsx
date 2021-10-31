@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { api } from '../services/api';
 
 import deleteImg from '../assets/delete.png'
@@ -9,26 +9,32 @@ type AppointmentItemProps = {
     specialty: string,
     date: string,
     schedule: string,
-    status: string,
+    status: ReactNode
 }
 
 
 export function AppointmentItem(props: AppointmentItemProps){
     const [isEditAppointmentModal, setIsEditAppointmentModal] = useState(false);
-    const [status, setStatus] = useState("Pendente");
-    const [colorStatus, setColorStatus] = useState("yellow");
     function handleConfirmDelete(){
         if(!window.confirm('Are you sure you want to delete')){
-            return
+            return 
         }
+
+        api.delete(`/appointment/${props.date}/${props.schedule}`)
+        .then( res => {
+            console.log(res)
+
+
+        })
+        
     }
 
     function handleCheckedStatus(){
-        setStatus("Executado")
-        setColorStatus("green")
-
-        api.put("/appointment", {status})
+        api.put(`/appointment/${props.date}/${props.schedule}`, {newStatus: "Executado"})
+  
     }
+
+
 
     function handleOpenEditAppointmentModal(){
         setIsEditAppointmentModal(true)
@@ -43,8 +49,8 @@ export function AppointmentItem(props: AppointmentItemProps){
             <p>{props.specialty}</p>
             <p>{props.date}</p>
             <p>{props.schedule}</p>
-            <button onClick={handleCheckedStatus}>
-                <p id={colorStatus}>{props.status}</p>
+            <button className="btn-status"onClick={handleCheckedStatus}>
+                <p>{props.status}</p>
             </button>
 
             <button onClick={handleOpenEditAppointmentModal}>

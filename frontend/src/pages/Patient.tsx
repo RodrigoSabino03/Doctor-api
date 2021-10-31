@@ -1,14 +1,24 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { AppointmentItem } from "../components/AppointmentItem";
 import { Button } from "../components/Button";
 import { Header } from "../components/Header";
 import { NewAppointmentModal } from "../components/NewAppointmentModal";
+import { api } from "../services/api";
 
 import '../styles/patient.css'
 
+type Appointment = {
+    id: number,
+    date: string,
+    schedule: string,
+    specialty: string,
+    status: string,
+}
+
 export function Patient(){
     const [isNewAppointmentModal, setIsNewAppointmentModal] = useState(false);
+    const [appointments, setAppointments] = useState<Appointment[]>([])
+
 
     function handleOpenNewAppointmentModal(){
         setIsNewAppointmentModal(true)
@@ -17,11 +27,17 @@ export function Patient(){
         setIsNewAppointmentModal(false)
     }
 
-    var history = useHistory();
 
-    function handleAddAppointment(){
-        history.push("/createAppointment")
-    }
+    useEffect(() => {
+        api.get("/appointments")
+        .then(response => {
+            const appointments = response.data
+    
+            setAppointments(appointments)
+            
+        })
+    }, [])
+
     return(
         <div className="container-patient">
             <Header />
@@ -32,7 +48,16 @@ export function Patient(){
                         <Button onClick={handleOpenNewAppointmentModal}>Novo</Button>
                     </div>
                     <div className="items-appointments">
-                        {/* <AppointmentItem /> */}
+                        {appointments.map(appointment => (
+                                    <AppointmentItem
+                                        key={appointment.id}
+                                        date={appointment.date} 
+                                        schedule={appointment.schedule} 
+                                        specialty={appointment.specialty} 
+                                        status={appointment.status} 
+                                
+                                    />
+                                ))}
 
                     </div>
                 </div>

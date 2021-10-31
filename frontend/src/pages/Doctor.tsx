@@ -5,6 +5,7 @@ import { Header } from "../components/Header";
 import { NewAppointmentModal } from "../components/NewAppointmentModal";
 import { NewPatientsModal } from "../components/NewPatientsModal";
 import { PatientItem } from "../components/PatientItem";
+import { PatientModal } from "../components/PatientModal";
 import { api } from "../services/api";
 
 import '../styles/doctor.css'
@@ -17,26 +18,25 @@ type Patient = {
     address: string,
     phone: number,
     email: string,
-
 }
+
+type Appointment = {
+    id: number,
+    date: string,
+    schedule: string,
+    specialty: string,
+    status: string,
+}
+
+
 
 export function Doctor(){
     const [patients, setPatients] = useState<Patient[]>([])
+    const [appointments, setAppointments] = useState<Appointment[]>([])
 
     const [isNewPatientsModal, setIsNewPatientsModal] = useState(false);
     const [isNewAppointmentModal, setIsNewAppointmentModal] = useState(false);
-
-    useEffect(() => {
-        api.get("/patients")
-        .then(response => {
-            const patients = response.data
-    
-            setPatients(patients)
-            
-        })
-    }, [])
-
-    console.log(patients)
+ 
 
     function handleOpenNewPatientsModal(){
         setIsNewPatientsModal(true)
@@ -51,6 +51,28 @@ export function Doctor(){
         setIsNewAppointmentModal(false)
     }
 
+    
+
+    useEffect(() => {
+        api.get("/patients")
+        .then(response => {
+            const patients = response.data
+    
+            setPatients(patients)
+            
+        })
+    }, [patients])
+
+    useEffect(() => {
+        api.get("/appointments")
+        .then(response => {
+            const appointments = response.data
+    
+            setAppointments(appointments)
+            
+        })
+    }, [appointments])
+
     return(
         <div className="container-doctor">
             <Header />
@@ -61,11 +83,9 @@ export function Doctor(){
                         <Button onClick={handleOpenNewPatientsModal}>Novo</Button>
                     </div>
                     <div className="items-patients">
-                        {patients.map(patient => {
-                            <PatientItem key={patient.id} name={patient.name} dateOfBirth={patient.dateOfBirth} />
-                        })}
-                        
-
+                        {patients.map(patient => (
+                            <PatientItem key={patient.id} name={patient.name} dateOfBirth={patient.dateOfBirth} email={patient.email} />
+                            ))}
                     </div>
                 </div>
                 <div className="appointments-section">
@@ -74,8 +94,16 @@ export function Doctor(){
                         <Button onClick={handleOpenNewAppointmentModal}>Novo</Button>
                     </div>
                     <div className="items-appointments">
-                        {/* <AppointmentItem /> */}
-
+                            {appointments.map(appointment => (
+                                    <AppointmentItem
+                                        key={appointment.id}
+                                        date={appointment.date} 
+                                        schedule={appointment.schedule} 
+                                        specialty={appointment.specialty} 
+                                        status={appointment.status} 
+                                
+                                    />
+                                ))}
                     </div>
                 </div>
             </div>

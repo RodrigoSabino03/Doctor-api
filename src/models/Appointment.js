@@ -1,12 +1,17 @@
 const knex = require('../database')
 
 class Appointment{
-    async create(date, schedule, specialty) {
-        return await knex("appointments").insert({date, schedule, specialty})
+    async create(date, schedule, specialty, patient) {
+        return await knex("appointments").insert({date, schedule, specialty, patient})
     }
 
     async find(date, schedule){
         const res = await knex("appointments").select("*").where({ date: date, schedule: schedule })
+        return res
+    }
+
+    async findAll(){
+        const res = await knex("appointments").select("*")
         return res
     }
 
@@ -24,9 +29,9 @@ class Appointment{
 
     async delete(date, schedule){
         try {
-            return await knex("appointments").select("*").where({ date: date, schedule: schedule }).del();
+            return await knex("appointments").where({ date: date, schedule: schedule }).del();
         } catch (err) {
-            console.log("Patients.delete =>> ", err.message);
+            console.log("Appointment.delete =>> ", err.message);
         }
     }
 

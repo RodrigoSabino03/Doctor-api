@@ -9,35 +9,44 @@ class AppointmentController{
         return res.status(200).json({appointment});
 
     }
-    async create(req, res){
-        const { date, schedule, specialty } = req.body;
 
-        if(!date || !schedule || !specialty){
+    async searchAll(req, res){
+        const appointments = await Appointment.findAll();
+        return res.status(200).json(appointments);
+    }
+    async create(req, res){
+        const { date, schedule, specialty, patient } = req.body;
+
+        if(!date || !schedule || !specialty || !patient){
             return res.status(400).json({ error: "credential is missing" });
         }
 
-        // const verification = await Patient.verify(name, email)
-
-        // if(verification.exists){
-        //     return res.status(400).json({ error: "user exists"})
-        // }
-
-        await Appointment.create(date, schedule, specialty);
+        await Appointment.create(date, schedule, specialty, patient);
         return res.status(201).json({message: "appointment created successfully"})
 
     }
     async delete(req, res){
-        const {date, schedule} = req.body;
 
-        // verificar de existe uma conta com o email
-        const verifyAppointment = await Appointment.find(date, schedule);
+        try {
+            const {date, schedule} = req.params;
+        
+            // verificar de existe uma conta com o email
+            const verifyAppointment = await Appointment.find(date, schedule);
+    
+            if(verifyAppointment.length === 0){
+                return res.status(400).json({message: "Appointment not exists"})
+            }
+    
+            const response = await Appointment.delete(date, schedule);
 
-        if(verifyAppointment.length < 0){
-            return res.status(400).json({message: "Appointment not exists"})
+
+            return res.status(200).json({message: "Appointment deleted successfully"})
+            
+        } catch (err) {
+            console.log(err)
         }
 
-        await Appointment.delete(date, schedule);
-        return res.status(201).json({message: "Appointment deleted successfully"})
+
 
 
 

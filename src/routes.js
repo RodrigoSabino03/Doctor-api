@@ -9,9 +9,9 @@ const routes = Router();
 //patients
 routes.post("/patient", PatientController.create)
 routes.get("/patient/:email", PatientController.search)
-routes.delete("/patient", PatientController.delete)
-routes.put("/patient/:email", PatientController.edit)
 routes.get("/patients", PatientController.searchAll)
+routes.delete("/patient/:email", PatientController.delete)
+routes.put("/patient/:email", PatientController.edit)
 
 
 //doctors
@@ -23,7 +23,10 @@ routes.put("/doctor/:crm", DoctorController.edit)
 //appointments
 routes.post("/appointment", AppointmentController.create)
 routes.get("/appointment", AppointmentController.search)
-routes.delete("/appointment", AppointmentController.delete)
+routes.get("/appointments", AppointmentController.searchAll)
+routes.delete("/appointment/:date/:schedule", AppointmentController.delete)
 routes.put("/appointment/:date/:schedule", AppointmentController.edit)
+
+
 
 module.exports = { routes };

@@ -1,52 +1,36 @@
-import { FormEvent, useEffect, useState } from 'react';
-import Modal from 'react-modal';
+import { useEffect, useState } from 'react';
+import Modal from 'react-modal'
 import { api } from '../services/api';
-
-
-
-import '../styles/PatientsModal.css'
-import { Button } from './Button';
 
 type NewPatientsModalProps = {
     isOpen: boolean,
     onRequestClose: () => void,
     title: string,
+    name: string,
+    dateOfBirth: string,
+    gender: string,
+    address: string,
+    phone: number,
+    email: string,
     
 }
 
-export function NewPatientsModal({ isOpen, onRequestClose, title }: NewPatientsModalProps){
-    const [name, setName] = useState('');
-    const [dateOfBirth, setDateOfBirth] = useState('');
-    const [gender, setGender] = useState('');
-    const [address, setAddress] = useState('');
-    const [phone, setPhone] = useState(0);
-    const [email, setEmail] = useState('');
+export function PatientModal({ isOpen, onRequestClose, title, name, dateOfBirth, gender, address, phone, email}:NewPatientsModalProps){
 
-    function successfullyPatient(){
-        if(window.confirm("Paciente cadastrado com sucesso")){
-            return onRequestClose();
-        }
+
+
+    useEffect(() => {
+        api.get(`/patient/${email}`)
+        .then(response => {
+            const patient = response.data
+            
+
+
         
-        
-    }
+        })
+    }, [])
 
 
-    function handleCreateNewPatient(e: FormEvent){
-        e.preventDefault();
-
-        const patient ={
-            name,
-            dateOfBirth,
-            gender,
-            address,
-            phone,
-            email,
-        }
-
-        api.post("/patient", patient)
-        successfullyPatient();
-    }
-    
 
     return(
         <Modal
@@ -68,14 +52,14 @@ export function NewPatientsModal({ isOpen, onRequestClose, title }: NewPatientsM
 
                 
             </div>
-            <form onSubmit={handleCreateNewPatient} className="modal-patients">
+            <form className="modal-patients">
             <label>Nome completo    
             <input
                 type="text"
                 id="input-full"
                 className="input-modal"
                 value={name}
-                onChange={e => setName(e.target.value)}
+                disabled
             /></label>
             <div className="double-input">
             <label>Data de nascimento
@@ -84,14 +68,14 @@ export function NewPatientsModal({ isOpen, onRequestClose, title }: NewPatientsM
                 id="input-mini"
                 className="input-modal"
                 value={dateOfBirth}
-                onChange={e => setDateOfBirth(e.target.value)}
+                disabled
             /></label>
             <label>Genero
             <select
                 id="input-mini" 
                 className="input-modal"
                 value={gender}
-                onChange={e => setGender(e.target.value)}
+                disabled
                 >
                 <option value="0" ></option>
                 <option value="masculino">masculino</option>
@@ -105,7 +89,7 @@ export function NewPatientsModal({ isOpen, onRequestClose, title }: NewPatientsM
                 id="input-full"
                 className="input-modal"
                 value={address}
-                onChange={e => setAddress(e.target.value)}
+                disabled
             /></label>
             <label>Telefone
             <input
@@ -113,7 +97,7 @@ export function NewPatientsModal({ isOpen, onRequestClose, title }: NewPatientsM
                 id="input-full"
                 className="input-modal"
                 value={phone}
-                onChange={e => setPhone(Number(e.target.value))}
+                disabled
             /></label>
             <label>Email
             <input
@@ -121,10 +105,8 @@ export function NewPatientsModal({ isOpen, onRequestClose, title }: NewPatientsM
                 id="input-full"
                 className="input-modal"
                 value={email}
-                onChange={e => setEmail(e.target.value)}
+                disabled
             /></label>
-
-            <Button type="submit">Cadastrar</Button>
             </form>
         </Modal>
     )

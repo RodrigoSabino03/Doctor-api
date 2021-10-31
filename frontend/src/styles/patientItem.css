@@ -32,11 +32,9 @@
     margin-right: 8px;
 }
 
-#yellow {
-    color: #FFD700;
+.btn-status p {
+    color: #FF1575;
 }
 
-#green {
-    color: #00FF00;
-}
+
 
