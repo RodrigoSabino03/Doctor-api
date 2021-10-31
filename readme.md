@@ -1,21 +1,81 @@
-# Doctor-Api
+<p align="center">
+  <img width="434" height="127" src="https://github.com/RodrigoSabino02/Doctor-api/blob/main/frontend/src/assets/hygia_branco.png">
+</p>
 
----
-# diario de bordo
+<p align="center">
+  Made with :coffee: by <a href="https://www.linkedin.com/in/rodrigo-sabino/" target="_blank"> Rodrigo Sabino </a> 
+</p>
 
-# oque eu fiz hj
+__<p align="center">Doctor Api e uma aplicaçao para melhorar o fluxo de pacientes e consultas de um medico</p>__
 
-    - configurei o back e o front para integraçao
-    - deixar as paginas de login 100% funcional
-    - deixar cadastro de pacientes e consultas 100% funcional
-    - criaçao da rota de todos os pacientes
-    - começar modelar as paginas de admin
+<p align="center">
+  <img src="https://img.shields.io/github/last-commit/RodrigoSabino02/Doctor-api"> 
+  <img src="https://img.shields.io/github/languages/top/RodrigoSabino02/Doctor-api"> 
+  <img src="https://img.shields.io/github/languages/count/RodrigoSabino02/Doctor-api"> 
+  <img src="https://img.shields.io/github/repo-size/RodrigoSabino02/Doctor-api"> 
+  <img src="https://img.shields.io/badge/License-MIT-green.svg"> 
+</p>
 
-# oque eu vou fazer amanha
+<div  align="center">
 
-    - Deixar as paginas de admin 100% funcional
-    - criar a rota de consultas
-    - deixar o botao de deletar consultas e pacientes 100% funcional
+  [Technologies](#construction_worker-built-with) |  
+  [How to run](#triangular_flag_on_post-how-to-run) |
+  [License](#label-license)
+  
+</div>
+
+<hr>
+<p align="center">
+  <img src="" width="800" height="400"/>
+</p>
+
+## :pushpin: Description
+<p>
+  Doctor Api is an application to improve the flow of patients and doctor's appointments
+</p>
+
+## :construction_worker: Built with
+<ul>
+    <li><a href="https://pt-br.reactjs.org/">React.js</a></li>
+    <li><a href="https://nodejs.org/en/">Node.js</a></li>
+    <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript">Javascript</a></li>
+    <li><a href="https://www.typescriptlang.org/docs/">Typescript</a></li>
+    <li><a href="https://www.npmjs.com/package/axios">Axios</a></li>
+    <li><a href="https://www.postgresql.org/docs/">Postgress</a></li>
+</ul>
 
 
 
+
+## :triangular_flag_on_post: How to run 
+
+<p>you need to clone the repository and then run the application</p>
+
+``` 
+// Clone the repository:
+$ git clone 'https://github.com/RodrigoSabino02/Doctor-api.git'
+
+// Go into the folder
+$ cd Doctor-api
+
+// Install backend dependencies
+$ yarn install
+
+
+// Install frontend dependencies
+$ cd frontend
+$ yarn install
+
+// Run the application
+- backend
+$ yarn dev
+
+-frontend
+$ yarn start
+
+```
+
+## :label: License
+<ul>
+  <li> MIT License -<a href="https://github.com/RodrigoSabino02/Doctor-api/blob/master/LICENSE"> About </a></li>
+</ul>
