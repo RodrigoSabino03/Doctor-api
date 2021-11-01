@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="434" height="127" src="https://github.com/RodrigoSabino02/Doctor-api/blob/main/frontend/src/assets/hygia_branco.png">
+  <img width="434" height="128" src="https://github.com/RodrigoSabino02/Doctor-api/blob/main/frontend/src/assets/hygia_branco.png">
 </p>
 
 <p align="center">
