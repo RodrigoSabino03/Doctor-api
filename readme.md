@@ -26,12 +26,23 @@ __<p align="center">Doctor Api e uma aplicaçao para melhorar o fluxo de pacient
 
 <hr>
 <p align="center">
-  <img src="" width="800" height="400"/>
+  <img src="https://media.giphy.com/media/o6bQEhB7sLvhGSx7x9/giphy.gif" width="800" height="400"/>
+</p>
+<p align="center">
+<a  href="https://youtu.be/zfImSPFrOlo"><strong>Video Completo</strong></a>
 </p>
 
 ## :pushpin: Description
+
 <p>
-  Doctor Api is an application to improve the flow of patients and doctor's appointments
+  Essa aplicação pra mim foi muito importante pra quebrar alguns tabus na minha jornada,
+  percebi que o backend n e esse bicho de 7 cabeças que existia na minha cabeça e ate me
+  divertir muito construindo a api e vi o quanto eu sou capaz de construir algo 100% e
+  me deu mais vontade de me aprofundar no backend
+  
+  oque eu não consegui fazer foi a parte de relacionamento de banco de dados, 
+  ligar os pacientes pra tabela do doutor e as consultas para a tabela do paciente
+  usei a tabela de medicos mais para a autenticação de login
 </p>
 
 ## :construction_worker: Built with
