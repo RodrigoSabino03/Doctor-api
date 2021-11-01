@@ -21,7 +21,18 @@ class AppointmentController{
             return res.status(400).json({ error: "credential is missing" });
         }
 
-        await Appointment.create(date, schedule, specialty, patient);
+        const appointment = await Appointment.verify(date, schedule)
+
+        if(appointment.exists){
+            return res.status(400).json({ error: "appointment already exists"})
+        }
+
+        const appointmentCreated = await Appointment.create(date, schedule, specialty, patient);
+
+        if(appointmentCreated){
+            return res.status(400).json({ error: "appointment created failed"})
+        }
+
         return res.status(201).json({message: "appointment created successfully"})
 
     }
@@ -39,6 +50,9 @@ class AppointmentController{
     
             const response = await Appointment.delete(date, schedule);
 
+            if(response.error){
+                return res.status(400).json({ error: "appointment deleted failed"})
+            }
 
             return res.status(200).json({message: "Appointment deleted successfully"})
             

@@ -2,7 +2,12 @@ const knex = require('../database')
 
 class Appointment{
     async create(date, schedule, specialty, patient) {
-        return await knex("appointments").insert({date, schedule, specialty, patient})
+        try {
+             await knex("appointments").insert({date, schedule, specialty, patient})
+             return {error: false}
+        } catch (error) {
+            return {error: true}
+        }
     }
 
     async find(date, schedule){
@@ -15,23 +20,25 @@ class Appointment{
         return res
     }
 
-    // async verify(name, email){
-    //     const nameInUSe = await knex("appointments").select("*").where({ name: name});
-    //     if(nameInUSe.length > 0){
-    //         return {exists: true}
-    //     }
-    //     const emailInUSe = await knex("appointments").select("*").where({ email: email});
-    //     if(emailInUSe.length > 0){
-    //         return {exists: true}
-    //     }
-    //     return {exists: false}
-    // }
+    async verify(date, schedule){
+        const dateInUSe = await knex("appointments").select("*").where({ date: date});
+        if(dateInUSe.length > 0){
+            return {exists: true}
+        }
+        const scheduleInUSe = await knex("appointments").select("*").where({ schedule: schedule });
+        if(scheduleInUSe.length > 0){
+            return {exists: true}
+        }
+        return {exists: false}
+    }
 
     async delete(date, schedule){
         try {
-            return await knex("appointments").where({ date: date, schedule: schedule }).del();
+            await knex("appointments").where({ date: date, schedule: schedule }).del();
+            return {error: false}
         } catch (err) {
             console.log("Appointment.delete =>> ", err.message);
+            return {error: true}
         }
     }
 

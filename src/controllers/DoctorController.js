@@ -8,13 +8,14 @@ class DoctorController{
             return res.status(400).json({ error: "credential is missing" });
         }
 
-        const verification = await Doctor.verify(crm)
+        const DoctorExists = await Doctor.verify(crm)
 
-        if(verification.exists){
+        if(DoctorExists){
             return res.status(400).json({ error: "user exists"})
         }
 
         await Doctor.create(name, crm);
+
         return res.status(201).json({message: "user created successfully"})
 
     }
@@ -22,9 +23,11 @@ class DoctorController{
     async search(req, res){
         const {crm} = req.params;
 
+        if(!crm){
+            return res.status(400).json({ error: "user not exists"})
+        }
+
         const doctor = await Doctor.find(crm)
-
-
 
         return res.status(200).json(doctor);
 
@@ -35,11 +38,16 @@ class DoctorController{
         // verificar de existe uma conta com o email
         const verifyDoctor = await Doctor.find(crm);
 
-        if(verifyDoctor.length < 1){
+        if(!verifyDoctor){
             return res.status(400).json({message: "user not exists"})
         }
 
-        await Doctor.delete(crm);
+        const doctor = await Doctor.delete(crm);
+
+        if(doctor.error){
+            return res.status(400).json({message: "user deleted failed"})
+        }
+
         return res.status(201).json({message: "user deleted successfully"})
     }
 

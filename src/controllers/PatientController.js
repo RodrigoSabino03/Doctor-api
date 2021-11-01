@@ -42,10 +42,13 @@ class PatientController {
             return res.status(400).json({message: "user not exists"})
         }
 
-        await Patient.delete(email);
+        const patientDeleted = await Patient.delete(email);
+
+        if(patientDeleted){
+            return res.status(400).json({message: "user deleted failed"})
+        }
+
         return res.status(201).json({message: "user deleted successfully"})
-
-
 
     }
     async edit(req, res){

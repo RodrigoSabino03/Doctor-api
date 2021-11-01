@@ -8,21 +8,27 @@ class Doctor{
     async find(crm){
         const res = await knex("doctors").select("*").where({ crm: crm })
 
+        if(res.length === 0){
+            return undefined
+        }
+
         return res[0]
     }
 
     async verify(crm){
         const crmInUSe = await knex("doctors").select("*").where({ crm: crm});
         if(crmInUSe.length > 0){
-            return {exists: true}
+            return true
         }
-        return {exists: false}
+        return false
     }
     async delete(crm){
         try {
-            return await knex("doctors").select("*").where({ crm: crm}).del();
+            const res = await knex("doctors").select("*").where({ crm: crm}).del();
+            return {error: false, res}
         } catch (err) {
             console.log("Doctor.delete =>> ", err.message);
+            return {error: true}
         }
     }
 

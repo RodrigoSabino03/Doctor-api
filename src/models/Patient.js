@@ -28,9 +28,11 @@ class Patient {
 
     async delete(email){
         try {
-            return await knex("patients").where({ email: email}).del();
+            await knex("patients").where({ email: email}).del();
+            return {error: false}
         } catch (err) {
             console.log("Patients.delete =>> ", err.message);
+            return {error: true}
         }
     }
 
